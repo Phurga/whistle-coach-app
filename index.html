@@ -4,9 +4,17 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Whistle Coach</title>
-  <script type="module" crossorigin src="./assets/main-DNeByHl6.js"></script>
-  <link rel="modulepreload" crossorigin href="./assets/whistle-BshO2fxJ.js">
-  <link rel="modulepreload" crossorigin href="./assets/coach-d1N-NM95.js">
+  <!-- installable app (manifest + offline cache in public/, registered by src/pwa.ts) -->
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icon-192.png">
+  <link rel="apple-touch-icon" href="./apple-touch-icon.png">
+  <meta name="theme-color" content="#1b211e">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Whistle">
+  <script type="module" crossorigin src="./assets/main-DKtLEhlh.js"></script>
+  <link rel="modulepreload" crossorigin href="./assets/whistle-CS9kf2Dq.js">
+  <link rel="modulepreload" crossorigin href="./assets/coach-DlYj_YAZ.js">
   <link rel="stylesheet" crossorigin href="./assets/whistle-CO9N7Eb1.css">
 </head>
 <body>
@@ -101,15 +109,17 @@
   <dialog id="settings-dialog">
     <form method="dialog" class="dialog-body settings">
       <h2>Settings</h2>
-      <label title="Short loops: a mistake sends you back to the start of the loop">Loop length
+      <label title="A mistake sends you back to the last checkpoint (the gold flags)">Checkpoint every
         <select id="looplen">
-          <option value="4">4 notes</option>
-          <option value="6">6 notes</option>
-          <option value="8">8 notes</option>
+          <option value="4">4 beats</option>
+          <option value="6">6 beats</option>
+          <option value="8">8 beats</option>
+          <option value="12">12 beats</option>
+          <option value="16">16 beats</option>
           <option value="0">Whole line</option>
         </select>
       </label>
-      <label class="check"><input type="checkbox" id="loop-chk"> Repeat the same loop</label>
+      <label class="check"><input type="checkbox" id="loop-chk"> Repeat the same part (practise one stretch)</label>
       <label class="check" title="A beat runs in your earphones while the mic is on; start each loop on any beat"><input type="checkbox" id="rhythm-chk"> Steady beat (notes scroll in time)</label>
       <label title="What the beat sounds like (earphones recommended)">Beat sound
         <select id="beat-select">
@@ -127,6 +137,9 @@
         </select>
       </label>
       <label class="check" title="Game sounds for good notes, mistakes and cleared loops"><input type="checkbox" id="fx-chk"> Game sounds</label>
+      <p class="small muted"><b>Reading the notes:</b> the bold head is when to play the note (the only thing that's judged).
+        A thin tail is the time until the next note: hold it or keep it short, your choice. A thick tail means the note
+        is written to be held: it fills up while you sustain it, for a "Held!" bonus.</p>
       <p class="small muted">Keys: <kbd>Esc</kbd> settings · <kbd>←</kbd> <kbd>→</kbd> move · <kbd>L</kbd> listen · <kbd>P</kbd> repeat loop.
         A mistake sends you back to the start of the loop: play its first note to go again.</p>
       <div class="row end">
