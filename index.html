@@ -13,10 +13,10 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="Whistle">
-  <script type="module" crossorigin src="./assets/main-CDakUVHw.js"></script>
-  <link rel="modulepreload" crossorigin href="./assets/whistle-yMMLe2YW.js">
-  <link rel="modulepreload" crossorigin href="./assets/coach-BoxzNh65.js">
-  <link rel="stylesheet" crossorigin href="./assets/whistle-CgNTJ5D5.css">
+  <script type="module" crossorigin src="./assets/main-xgN9k4iF.js"></script>
+  <link rel="modulepreload" crossorigin href="./assets/whistle-CnBiK9vA.js">
+  <link rel="modulepreload" crossorigin href="./assets/coach-XY1229dc.js">
+  <link rel="stylesheet" crossorigin href="./assets/whistle-cFRWd5UI.css">
 </head>
 <body>
   <main class="stage" id="tune-panel">
@@ -122,6 +122,7 @@
           <li><i class="lg-note short"></i><span>Short note: less than a beat.</span></li>
           <li><i class="lg-hold"></i><span>Held note: keep blowing; the tail fills up while you sustain it, for a "Held!" bonus.</span></li>
           <li><i class="lg-tongue"></i><span>Same note again: re-tongue it ("tu").</span></li>
+          <li><i class="lg-chart"></i><span>Unusual fingering (c♮, half holes "½"): the little chart above the note shows the six holes, mouthpiece at the top. Filled = covered, half = half covered, ring = open.</span></li>
         </ul>
         <div class="legend-faces small" id="legend-faces"></div>
       </section>
@@ -134,10 +135,10 @@
 
   <dialog id="import-dialog">
     <form method="dialog" class="dialog-body">
-      <h2>Paste a tab</h2>
+      <h2 id="imp-heading">Paste a tab</h2>
       <p class="small muted">Copy the note lines from a tab site (e.g. <a href="https://www.tinwhistletab.com/fr/tabs/concerning_hobbits_tabs_and_backing_track" target="_blank" rel="noopener">tinwhistletab.com</a>) and paste them here.
         Format: <code>d e f# a b d+ c#</code> — <code>+</code> = high octave. Each line becomes a phrase.
-        Every note lasts one beat; add <code>-</code> to hold it longer (<code>d-</code> = 2 beats, <code>d--</code> = 3) and <code>r</code> for a one-beat rest (<code>r-</code> = 2).
+        Every note lasts one beat; add <code>-</code> to hold it longer (<code>d-</code> = 2 beats, <code>d--</code> = 3) and <code>r</code> for a one-beat rest (<code>r-</code> = 2). Optional bar lines: <code>|</code> between bars, <code>|: … :|</code> around a part played twice, <code>[1</code> / <code>[2</code> for endings.
         You can also paste <b>ABC notation</b> (with its <code>X:</code>, <code>T:</code> and <code>K:</code> lines), e.g. from abcnotation.com.</p>
       <label>Title <input id="imp-title" placeholder="Concerning Hobbits" required></label>
       <textarea id="imp-text" rows="10" placeholder="d e f# a f# e d f# a b ..."></textarea>
@@ -154,7 +155,11 @@
   <dialog id="find-dialog" class="find-dialog">
     <div class="dialog-body">
       <h2>Add a tune</h2>
-      <div class="row"><button id="import-btn" type="button" title="Paste a whistle tab or ABC notation">Paste a tab or ABC</button> <span class="small muted">or search online:</span></div>
+      <div class="row"><button id="import-btn" type="button" title="Paste a whistle tab or ABC notation">Paste a tab or ABC</button>
+        <button id="file-btn" type="button" title="Sheet music exported from MuseScore, Finale, Sibelius… (MusicXML: .musicxml, .xml, .mxl) or a MIDI file (.mid)">Open a file</button>
+        <input id="file-input" type="file" accept=".musicxml,.xml,.mxl,.mid,.midi,application/vnd.recordare.musicxml+xml,audio/midi" hidden>
+        <span class="small muted">or search online:</span></div>
+      <div id="file-status" class="small setup-hint error"></div>
       <p class="small muted" style="margin:0">Search about 20,000 traditional tunes on <a href="https://thesession.org" target="_blank" rel="noopener">thesession.org</a>.
         They're turned into whistle tab, with repeats played out and the key moved to suit a D whistle when needed.</p>
       <div class="row find-search">
