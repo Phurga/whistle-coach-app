@@ -13,10 +13,10 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="Whistle">
-  <script type="module" crossorigin src="./assets/main-Wq5Wus4M.js"></script>
-  <link rel="modulepreload" crossorigin href="./assets/whistle-DbCHaaqL.js">
-  <link rel="modulepreload" crossorigin href="./assets/coach-BqH_esu-.js">
-  <link rel="stylesheet" crossorigin href="./assets/whistle-X3DclHNV.css">
+  <script type="module" crossorigin src="./assets/main-DM7ydBQ6.js"></script>
+  <link rel="modulepreload" crossorigin href="./assets/whistle-dDGQl5Oe.js">
+  <link rel="modulepreload" crossorigin href="./assets/coach-BYrpvGnB.js">
+  <link rel="stylesheet" crossorigin href="./assets/whistle-Cnur9N7E.css">
 </head>
 <body>
   <main class="stage" id="tune-panel">
@@ -51,6 +51,7 @@
         <span id="progress-thumb" class="thumb"></span>
         <span id="progress-ticks" class="ticks"></span>
         <span id="attempt" class="attempt" title="Attempt at this loop"></span>
+        <span id="lives" class="lives" title="Lives: mistakes you may make before the loop starts again (back at each checkpoint)"></span>
         <span id="combo" class="combo"></span>
       </div>
       <div id="start-overlay" class="start-overlay"><b><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12.5-7.5z"/></svg>Tap to start the microphone</b><span class="small">Tap: pause · Hold: start over · Drag or scroll: move through the tune · Pinch: zoom · Double-tap left / right: previous / next loop</span></div>
@@ -102,7 +103,12 @@
         </select>
       </label>
       <label class="switch" title="A soft beat in your earphones while you play. Off: the beat is only shown on the board"><input type="checkbox" id="beat-chk" role="switch"><span class="track" aria-hidden="true"></span>Beat sound</label>
-      <label title="Each tune has a reference tempo (its well-known recording or usual pace); the app remembers the tempo you use for each tune">Tempo <span class="row"><input id="tempo" type="range" min="20" max="200" step="1" style="flex:1"> <span id="tempo-val"></span> <button type="button" id="tempo-reset" class="small" title="Back to the reference tempo" aria-label="Reference tempo"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3M4.5 4v4.5H9"/></svg></button></span></label>
+      <div class="field" title="Mistakes you may make in a loop before it starts again. They come back at each checkpoint. 0: any mistake restarts the loop">Lives
+        <span class="row stepper"><button type="button" id="lives-down" class="step" aria-label="Fewer lives">−</button><span id="lives-val" class="step-val"></span><button type="button" id="lives-up" class="step" aria-label="More lives">+</button></span></div>
+      <div class="field" title="Each tune has a reference tempo (its well-known recording or usual pace); the app remembers the tempo you use for each tune. Hold − or + to change it faster">Tempo
+        <span class="row stepper"><button type="button" id="tempo-down" class="step" aria-label="Slower">−</button><span id="tempo-val" class="step-val"></span><button type="button" id="tempo-up" class="step" aria-label="Faster">+</button>
+          <button type="button" id="tempo-reset" class="small" title="Back to the reference tempo" aria-label="Reference tempo"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3M4.5 4v4.5H9"/></svg></button>
+          <input id="tempo" type="hidden" min="20" max="200"></span></div>
       <label id="timing-label">Timing window <span class="row"><input id="timing" type="range" min="0" max="60" step="5" style="flex:1"> <span id="timing-val"></span></span>
         <span id="timing-note" class="small muted"></span></label>
       <label title="While you hold a note, it only counts as held while it stays this close to the right pitch (in cents: 100 = a semitone)">Hold tone window <span class="row"><input id="tone" type="range" min="5" max="50" step="5" style="flex:1"> <span id="tone-val"></span></span></label>
