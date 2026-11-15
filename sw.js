@@ -3,7 +3,7 @@
 //  - the page itself: network first (so updates show up), cached copy when offline
 //  - hashed build files (assets/*), icons: cache first (their names change when they change)
 //  - the shared tune list: network first, last copy when offline
-const CACHE = 'whistle-coach-v4';
+const CACHE = 'whistle-coach-v5';
 
 self.addEventListener('install', (event) => {
   event.waitUntil(caches.open(CACHE).then((c) => c.addAll(['./', './manifest.webmanifest', './icon-192.png'])).then(() => self.skipWaiting()));

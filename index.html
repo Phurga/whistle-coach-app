@@ -13,7 +13,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="Whistle">
-  <script type="module" crossorigin src="./assets/main-Pu2jBtfu.js"></script>
+  <script type="module" crossorigin src="./assets/main-Qt7TDofJ.js"></script>
   <link rel="modulepreload" crossorigin href="./assets/whistle-D9TcI0ii.js">
   <link rel="modulepreload" crossorigin href="./assets/coach-B4Ht3T1q.js">
   <link rel="stylesheet" crossorigin href="./assets/whistle-BjzODvej.css">
@@ -158,7 +158,10 @@
       <p class="small muted" style="margin:0">Hum, sing "la la la" or whistle your tune, keeping the notes clearly apart and at a steady pace.
         The app writes it down for the whistle (in an easy key) for you to check and play.</p>
       <canvas id="hum-canvas" class="hum-canvas" aria-label="Your voice's pitch"></canvas>
-      <div class="row"><button id="hum-rec" type="button" class="primary">Record</button> <span id="hum-status" class="small muted">Up to a minute.</span></div>
+      <div class="row"><button id="hum-rec" type="button" class="primary">Record</button>
+        <button id="hum-file-btn" type="button" title="Use a recording instead: a voice memo, or any audio file of someone singing or humming">Open a recording</button>
+        <input id="hum-file" type="file" accept="audio/*,video/*,.m4a,.mp3,.wav,.ogg,.webm,.mp4" hidden>
+        <span id="hum-status" class="small muted">Up to a minute.</span></div>
       <pre id="hum-tab" class="find-preview hidden"></pre>
       <div class="row end">
         <button id="hum-cancel" type="button" class="ghost">Cancel</button>
