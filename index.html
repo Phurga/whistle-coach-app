@@ -13,10 +13,10 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="Whistle">
-  <script type="module" crossorigin src="./assets/main-Qt7TDofJ.js"></script>
-  <link rel="modulepreload" crossorigin href="./assets/whistle-D9TcI0ii.js">
-  <link rel="modulepreload" crossorigin href="./assets/coach-B4Ht3T1q.js">
-  <link rel="stylesheet" crossorigin href="./assets/whistle-BjzODvej.css">
+  <script type="module" crossorigin src="./assets/main-Wq5Wus4M.js"></script>
+  <link rel="modulepreload" crossorigin href="./assets/whistle-DbCHaaqL.js">
+  <link rel="modulepreload" crossorigin href="./assets/coach-BqH_esu-.js">
+  <link rel="stylesheet" crossorigin href="./assets/whistle-X3DclHNV.css">
 </head>
 <body>
   <main class="stage" id="tune-panel">
@@ -154,14 +154,21 @@
 
   <dialog id="hum-dialog">
     <div class="dialog-body">
-      <h2>Hum a melody</h2>
+      <h2>Melody from audio</h2>
       <p class="small muted" style="margin:0">Hum, sing "la la la" or whistle your tune, keeping the notes clearly apart and at a steady pace.
         The app writes it down for the whistle (in an easy key) for you to check and play.</p>
       <canvas id="hum-canvas" class="hum-canvas" aria-label="Your voice's pitch"></canvas>
       <div class="row"><button id="hum-rec" type="button" class="primary">Record</button>
         <button id="hum-file-btn" type="button" title="Use a recording instead: a voice memo, or any audio file of someone singing or humming">Open a recording</button>
         <input id="hum-file" type="file" accept="audio/*,video/*,.m4a,.mp3,.wav,.ogg,.webm,.mp4" hidden>
-        <span id="hum-status" class="small muted">Up to a minute.</span></div>
+        <span id="hum-status" class="small muted">Up to a minute and a half.</span></div>
+      <div class="hum-link">
+        <h3>From a video or song</h3>
+        <div class="row"><input id="hum-url" type="url" placeholder="https://www.youtube.com/shorts/…" aria-label="Link to a video or song" style="flex:1;min-width:180px">
+          <button id="hum-open" type="button" title="Opens the link in a new tab, to play it there">Open</button>
+          <button id="hum-capture" type="button" title="Listen to the sound playing in another tab (pick the tab, tick Share tab audio)">Capture its sound</button></div>
+        <p id="hum-capture-help" class="small muted" style="margin:0"></p>
+      </div>
       <pre id="hum-tab" class="find-preview hidden"></pre>
       <div class="row end">
         <button id="hum-cancel" type="button" class="ghost">Cancel</button>
@@ -177,7 +184,7 @@
       <div class="row"><button id="import-btn" type="button" title="Paste a whistle tab or ABC notation">Paste a tab or ABC</button>
         <button id="file-btn" type="button" title="Sheet music exported from MuseScore, Finale, Sibelius… (MusicXML: .musicxml, .xml, .mxl) or a MIDI file (.mid)">Open a file</button>
         <input id="file-input" type="file" accept=".musicxml,.xml,.mxl,.mid,.midi,application/vnd.recordare.musicxml+xml,audio/midi" hidden>
-        <button id="hum-btn" type="button" title="Hum, sing or whistle a melody: the app writes it down as a whistle tab">Hum a melody</button>
+        <button id="hum-btn" type="button" title="Hum, sing or whistle a melody, open a recording, or capture a video's sound: the app writes it down as a whistle tab">From audio</button>
         <span class="small muted">or search online:</span></div>
       <div id="file-status" class="small setup-hint error"></div>
       <p class="small muted" style="margin:0">Search about 20,000 traditional tunes on <a href="https://thesession.org" target="_blank" rel="noopener">thesession.org</a>.
