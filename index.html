@@ -13,10 +13,10 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="Whistle">
-  <script type="module" crossorigin src="./assets/main-DM7ydBQ6.js"></script>
-  <link rel="modulepreload" crossorigin href="./assets/whistle-dDGQl5Oe.js">
-  <link rel="modulepreload" crossorigin href="./assets/coach-BYrpvGnB.js">
-  <link rel="stylesheet" crossorigin href="./assets/whistle-Cnur9N7E.css">
+  <script type="module" crossorigin src="./assets/main-CRCx6X_w.js"></script>
+  <link rel="modulepreload" crossorigin href="./assets/whistle-BzciaFMj.js">
+  <link rel="modulepreload" crossorigin href="./assets/coach-DtkHlspR.js">
+  <link rel="stylesheet" crossorigin href="./assets/whistle-C-N7KUZc.css">
 </head>
 <body>
   <main class="stage" id="tune-panel">
@@ -51,12 +51,18 @@
         <span id="progress-thumb" class="thumb"></span>
         <span id="progress-ticks" class="ticks"></span>
         <span id="attempt" class="attempt" title="Attempt at this loop"></span>
-        <span id="lives" class="lives" title="Lives: mistakes you may make before the loop starts again (back at each checkpoint)"></span>
         <span id="combo" class="combo"></span>
       </div>
-      <div id="start-overlay" class="start-overlay"><b><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12.5-7.5z"/></svg>Tap to start the microphone</b><span class="small">Tap: pause · Hold: start over · Drag or scroll: move through the tune · Pinch: zoom · Double-tap left / right: previous / next loop</span></div>
+      <!-- lives left in this loop, top right -->
+      <span id="lives" class="lives" title="Lives: mistakes you may make before the loop starts again (back at each checkpoint)"></span>
+      <!-- tempo (left side, mid-height): press the knob and push it up (faster) or down (slower); hold to keep going -->
+      <div id="tempo-rail" class="tempo-rail" title="Tempo: push up = faster, down = slower">
+        <span class="arrow up" aria-hidden="true"></span><span class="arrow down" aria-hidden="true"></span>
+        <span id="tempo-knob" class="knob"><b id="tempo-knob-val"></b></span>
+      </div>
+      <div id="start-overlay" class="start-overlay"><b><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12.5-7.5z"/></svg>Play</b></div>
     </div>
-    <div class="row small muted tune-only"><span id="position"></span></div>
+    <div class="row small muted tune-only status-row"><span id="position"></span></div>
 
     <section class="panel hidden" id="tuner-panel">
       <div class="tuner-top">
@@ -88,7 +94,7 @@
 
   <dialog id="settings-dialog">
     <form method="dialog" class="dialog-body settings">
-      <h2>Settings</h2>
+      <h2 class="dlg-head">Settings <button value="close" class="ghost dlg-close" formnovalidate aria-label="Close" title="Close (Esc)"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></h2>
       <label title="What kind of tune this is (reel, jig, waltz…): it sets how long a bar is">Tune type
         <select id="tune-type"></select>
       </label>
@@ -120,8 +126,8 @@
         <input id="boost" type="range" min="1" max="40" step="0.5" style="flex:1">
         <span id="boost-val" style="min-width:3.5em">×1</span>
       </label>
-      <section class="board-help" aria-labelledby="board-help-title">
-        <h3 id="board-help-title">Reading the board</h3>
+      <details class="board-help">
+        <summary><h3>Reading the board</h3></summary>
         <ul class="legend small">
           <li><i class="lg-note"></i><span>A note: play it when it reaches the bone line. The number is how many holes to cover (0 = all open).</span></li>
           <li><i class="lg-note high"></i><span>High octave (+): same fingering, blow a bit harder.</span></li>
@@ -131,7 +137,7 @@
           <li><i class="lg-chart"></i><span>Unusual fingering (c♮, half holes "½"): the little chart above the note shows the six holes, mouthpiece at the top. Filled = covered, half = half covered, ring = open.</span></li>
         </ul>
         <div class="legend-faces small" id="legend-faces"></div>
-      </section>
+      </details>
       <div class="row end">
         <button id="delete-btn" type="button" class="ghost" title="Delete this tune">Delete this tune</button>
         <button value="close" class="primary">Done</button>
@@ -152,7 +158,7 @@
       <label class="check"><input type="checkbox" id="imp-split" checked> Split long lines into short phrases (≤ 12 notes)</label>
       <div id="imp-preview" class="small muted"></div>
       <div class="row end">
-        <button value="cancel" class="ghost">Cancel</button>
+        <button value="cancel" class="ghost" formnovalidate>Cancel</button>
         <button id="imp-save" value="save" class="primary">Add tune</button>
       </div>
     </form>
