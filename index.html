@@ -8,45 +8,25 @@
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" href="./icon-192.png">
   <link rel="apple-touch-icon" href="./apple-touch-icon.png">
-  <meta name="theme-color" content="#1b211e">
+  <meta name="theme-color" content="#f7efe0" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1d1614" media="(prefers-color-scheme: dark)">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="Whistle">
-  <script type="module" crossorigin src="./assets/main-CAweEUE0.js"></script>
-  <link rel="modulepreload" crossorigin href="./assets/whistle-CS9kf2Dq.js">
-  <link rel="modulepreload" crossorigin href="./assets/coach-DlYj_YAZ.js">
-  <link rel="stylesheet" crossorigin href="./assets/whistle-CO9N7Eb1.css">
+  <script type="module" crossorigin src="./assets/main-BdJbhgyR.js"></script>
+  <link rel="modulepreload" crossorigin href="./assets/whistle-Bv-egssD.js">
+  <link rel="modulepreload" crossorigin href="./assets/coach-CCWOpGGS.js">
+  <link rel="stylesheet" crossorigin href="./assets/whistle-rfM-Qcuw.css">
 </head>
 <body>
-  <header class="topbar">
-    <div class="brand">Whistle Coach <span class="badge">D whistle</span></div>
-    <nav class="modes" id="modes">
-      <button data-mode="tune">Play a tune</button>
-      <button data-mode="tuner">Tuner<span class="wide-only"> &amp; long tones</span></button>
-    </nav>
-    <div class="mic">
-      <div class="level" title="Microphone level"><span id="level-bar"></span></div>
-      <button id="setup-btn" class="ghost" title="Tune the app to your whistle and room">Setup</button>
-      <button id="mic-btn" class="primary">Start microphone</button>
-    </div>
-  </header>
-
   <main class="stage" id="tune-panel">
     <!-- slim strip: which tune, and how it's going (peripheral info only) -->
     <div class="strip tune-only">
       <select id="tune-select" aria-label="Tune"></select>
-      <button id="find-btn" title="Find a tune online">🔎<span class="wide-only"> Find</span></button>
-      <button id="import-btn" title="Paste a tab or ABC">+<span class="wide-only"> Paste</span></button>
-      <button id="settings-btn" class="ghost" title="Settings (Esc)" aria-label="Settings">⚙</button>
-    </div>
-    <div class="hud tune-only">
-      <span id="mascot" class="mascot" aria-hidden="true">🙂</span>
-      <span id="attempt" class="attempt">Attempt 1</span>
-      <span id="combo" class="combo"></span>
-      <div class="progress" title="How far you've got in the tune"><span id="progress-bar"></span></div>
-      <span id="beat-dot" class="beat-dot" title="Beat"></span>
-      <button id="listen-btn" class="ghost" title="Listen to the loop (L)">▶</button>
-      <button id="restart-btn" class="ghost" title="Start the tune again">↺</button>
+      <button id="find-btn" title="Add a tune: search online or paste a tab"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Add</button>
+      <button id="listen-btn" class="ghost" title="Listen demo: plays the whole tune from where you are (L)"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12.5-7.5z"/></svg><span class="wide-only"> Demo</span></button>
+      <button id="restart-btn" class="ghost" title="Start the tune again (or hold the screen)" aria-label="Start again"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3M4.5 4v4.5H9"/></svg></button>
+      <button id="settings-btn" class="ghost" title="Settings (Esc)" aria-label="Settings"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h9M17 7h3M4 12h3M11 12h9M4 17h11M19 17h1"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="12" r="2"/><circle cx="17" cy="17" r="2"/></svg></button>
     </div>
 
     <!-- the note highway: everything you need, in one place -->
@@ -65,7 +45,15 @@
         <div id="holes"></div>
         <ul id="finger-fix" class="finger-fix"></ul>
       </div>
-      <button id="start-overlay" class="start-overlay primary">▶ Start the microphone</button>
+      <!-- progress through the tune, at the bottom of the highway: gold ticks = checkpoints, the number = attempt at this loop -->
+      <div class="hw-progress" title="Click or drag to move through the tune">
+        <span id="progress-bar" class="fill"></span>
+        <span id="progress-thumb" class="thumb"></span>
+        <span id="progress-ticks" class="ticks"></span>
+        <span id="attempt" class="attempt" title="Attempt at this loop"></span>
+        <span id="combo" class="combo"></span>
+      </div>
+      <div id="start-overlay" class="start-overlay"><b><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12.5-7.5z"/></svg>Tap to start the microphone</b><span class="small">Tap: pause · Hold: start over · Drag or scroll: move through the tune · Double-tap left / right: previous / next loop</span></div>
     </div>
     <div class="row small muted tune-only"><span id="position"></span></div>
 
@@ -93,15 +81,6 @@
         Steady air = steady pitch. Try to fill every note below.</p>
       <div id="longtones" class="longtones"></div>
       <div id="tuner-stats" class="tuner-stats muted">Play any note…</div>
-      <h2>Setup</h2>
-      <p class="small">About 15 seconds of playing that fits the app to your whistle's tuning, its clean and airy sound, and your room's noise.
-        Re-run it if you change whistle, microphone or room.</p>
-      <div class="row"><button id="calib-btn">Run setup</button> <span id="calib-val" class="muted small"></span></div>
-      <label class="row small" style="margin-top:10px">Mic boost
-        <input id="boost" type="range" min="1" max="40" step="0.5" style="flex:1">
-        <span id="boost-val" style="min-width:3.5em">×1</span>
-      </label>
-      <p class="small muted" style="margin:0">Set by setup. Raise it if notes aren't picked up; lower it if background noise triggers notes.</p>
     </section>
   </main>
   <div id="flash" class="flash" aria-hidden="true"></div>
@@ -109,39 +88,43 @@
   <dialog id="settings-dialog">
     <form method="dialog" class="dialog-body settings">
       <h2>Settings</h2>
-      <label title="A mistake sends you back to the last checkpoint (the gold flags)">Checkpoint every
+      <label title="What kind of tune this is (reel, jig, waltz…): it sets how long a bar is">Tune type
+        <select id="tune-type"></select>
+      </label>
+      <label title="A mistake sends you back to the last checkpoint (the gold flags). Tune default: the usual practice length for this type of tune">Checkpoint every
         <select id="looplen">
-          <option value="4">4 beats</option>
-          <option value="6">6 beats</option>
-          <option value="8">8 beats</option>
-          <option value="12">12 beats</option>
-          <option value="16">16 beats</option>
+          <option value="-1">Tune default</option>
+          <option value="1">1 bar</option>
+          <option value="2">2 bars</option>
+          <option value="4">4 bars</option>
+          <option value="8">8 bars</option>
           <option value="0">Whole line</option>
         </select>
       </label>
-      <label class="check"><input type="checkbox" id="loop-chk"> Repeat the same part (practise one stretch)</label>
-      <label class="check" title="A beat runs in your earphones while the mic is on; start each loop on any beat"><input type="checkbox" id="rhythm-chk"> Steady beat (notes scroll in time)</label>
-      <label title="What the beat sounds like (earphones recommended)">Beat sound
-        <select id="beat-select">
-          <option value="beat">Beat</option>
-          <option value="melody">Beat + melody guide</option>
-          <option value="silent">Silent (lines only)</option>
-        </select>
+      <label class="switch" title="A soft beat in your earphones while you play. Off: the beat is only shown on the board"><input type="checkbox" id="beat-chk" role="switch"><span class="track" aria-hidden="true"></span>Beat sound</label>
+      <label title="Each tune has a reference tempo (its well-known recording or usual pace); the app remembers the tempo you use for each tune">Tempo <span class="row"><input id="tempo" type="range" min="20" max="200" step="1" style="flex:1"> <span id="tempo-val"></span> <button type="button" id="tempo-reset" class="small" title="Back to the reference tempo" aria-label="Reference tempo"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3M4.5 4v4.5H9"/></svg></button></span></label>
+      <label id="timing-label">Timing window <span class="row"><input id="timing" type="range" min="0" max="60" step="5" style="flex:1"> <span id="timing-val"></span></span>
+        <span id="timing-note" class="small muted"></span></label>
+      <label title="While you hold a note, it only counts as held while it stays this close to the right pitch (in cents: 100 = a semitone)">Hold tone window <span class="row"><input id="tone" type="range" min="5" max="50" step="5" style="flex:1"> <span id="tone-val"></span></span></label>
+      <label class="switch" title="Upcoming notes show as '?': play them from memory. Notes you get wrong are shown again"><input type="checkbox" id="hint-chk" role="switch"><span class="track" aria-hidden="true"></span>Play from memory</label>
+      <label class="switch" title="Game sounds for good notes, mistakes and cleared loops"><input type="checkbox" id="fx-chk" role="switch"><span class="track" aria-hidden="true"></span>Game sounds</label>
+      <h3>Microphone</h3>
+      <div class="row"><button id="calib-btn" type="button" title="About 15 seconds of playing that fits the app to your whistle, its sound and your room. Re-run it if you change whistle, microphone or room">Run setup</button> <span id="calib-val" class="muted small"></span></div>
+      <label class="row small" title="Set by setup. Raise it if notes aren't picked up; lower it if background noise triggers notes">Mic boost
+        <input id="boost" type="range" min="1" max="40" step="0.5" style="flex:1">
+        <span id="boost-val" style="min-width:3.5em">×1</span>
       </label>
-      <label>Tempo <span class="row"><input id="tempo" type="range" min="40" max="200" step="1" style="flex:1"> <span id="tempo-val"></span> bpm</span></label>
-      <label id="timing-label">Timing window <span class="row"><input id="timing" type="range" min="15" max="60" step="5" style="flex:1"> <span id="timing-val"></span></span></label>
-      <label>Hints
-        <select id="hint-select">
-          <option value="tab">Show the notes</option>
-          <option value="memory">Memory (upcoming notes hidden)</option>
-        </select>
-      </label>
-      <label class="check" title="Game sounds for good notes, mistakes and cleared loops"><input type="checkbox" id="fx-chk"> Game sounds</label>
-      <p class="small muted"><b>Reading the notes:</b> the bold head is when to play the note (the only thing that's judged).
-        A thin tail is the time until the next note: hold it or keep it short, your choice. A thick tail means the note
-        is written to be held: it fills up while you sustain it, for a "Held!" bonus.</p>
-      <p class="small muted">Keys: <kbd>Esc</kbd> settings · <kbd>←</kbd> <kbd>→</kbd> move · <kbd>L</kbd> listen · <kbd>P</kbd> repeat loop.
-        A mistake sends you back to the start of the loop: play its first note to go again.</p>
+      <section class="board-help" aria-labelledby="board-help-title">
+        <h3 id="board-help-title">Reading the board</h3>
+        <ul class="legend small">
+          <li><i class="lg-note"></i><span>A note: play it when it reaches the bone line. The number is how many holes to cover (0 = all open).</span></li>
+          <li><i class="lg-note high"></i><span>High octave (+): same fingering, blow a bit harder.</span></li>
+          <li><i class="lg-note short"></i><span>Short note: less than a beat.</span></li>
+          <li><i class="lg-hold"></i><span>Held note: keep blowing; the tail fills up while you sustain it, for a "Held!" bonus.</span></li>
+          <li><i class="lg-tongue"></i><span>Same note again: re-tongue it ("tu").</span></li>
+        </ul>
+        <div class="legend-faces small" id="legend-faces"></div>
+      </section>
       <div class="row end">
         <button id="delete-btn" type="button" class="ghost" title="Delete this tune">Delete this tune</button>
         <button value="close" class="primary">Done</button>
@@ -158,6 +141,7 @@
         You can also paste <b>ABC notation</b> (with its <code>X:</code>, <code>T:</code> and <code>K:</code> lines), e.g. from abcnotation.com.</p>
       <label>Title <input id="imp-title" placeholder="Concerning Hobbits" required></label>
       <textarea id="imp-text" rows="10" placeholder="d e f# a f# e d f# a b ..."></textarea>
+      <label title="What kind of tune it is: sets bar length and practice loops. For ABC it's read from the tune">Tune type <select id="imp-type"></select></label>
       <label class="check"><input type="checkbox" id="imp-split" checked> Split long lines into short phrases (≤ 12 notes)</label>
       <div id="imp-preview" class="small muted"></div>
       <div class="row end">
@@ -169,7 +153,8 @@
 
   <dialog id="find-dialog" class="find-dialog">
     <div class="dialog-body">
-      <h2>Find a tune</h2>
+      <h2>Add a tune</h2>
+      <div class="row"><button id="import-btn" type="button" title="Paste a whistle tab or ABC notation">Paste a tab or ABC</button> <span class="small muted">or search online:</span></div>
       <p class="small muted" style="margin:0">Search about 20,000 traditional tunes on <a href="https://thesession.org" target="_blank" rel="noopener">thesession.org</a>.
         They're turned into whistle tab, with repeats played out and the key moved to suit a D whistle when needed.</p>
       <div class="row find-search">
