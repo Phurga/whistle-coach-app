@@ -13,11 +13,11 @@
   <meta name="theme-color" content="#1d1614" media="(prefers-color-scheme: dark)">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-title" content="Whistle">
-  <script type="module" crossorigin src="./assets/main-BhdSKlUt.js"></script>
-  <link rel="modulepreload" crossorigin href="./assets/whistle-B_d3EqJd.js">
-  <link rel="modulepreload" crossorigin href="./assets/coach-iWshwsH8.js">
-  <link rel="stylesheet" crossorigin href="./assets/whistle-C8Kb4sjb.css">
+  <meta name="apple-mobile-web-app-title" content="Whistle">
+  <script type="module" crossorigin src="./assets/main-CazVPSxm.js"></script>
+  <link rel="modulepreload" crossorigin href="./assets/whistle-tPmobvPt.js">
+  <link rel="modulepreload" crossorigin href="./assets/coach-Dxu4pVx3.js">
+  <link rel="stylesheet" crossorigin href="./assets/whistle-DpSNyqh_.css">
 </head>
 <body>
   <main class="stage" id="tune-panel">
@@ -26,7 +26,7 @@
       <select id="tune-select" aria-label="Tune"></select>
       <button id="find-btn" title="Add a tune: search online or paste a tab"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Add</button>
       <button id="listen-btn" class="ghost" title="Listen demo: plays the whole tune from where you are (L)"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12.5-7.5z"/></svg><span class="wide-only"> Demo</span></button>
-      <button id="restart-btn" class="ghost" title="Start the tune again (or hold the screen)" aria-label="Start again"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3M4.5 4v4.5H9"/></svg></button>
+      <button id="key-btn" class="ghost hidden" title="Set key">Key</button>
       <button id="settings-btn" class="ghost" title="Settings (Esc)" aria-label="Settings"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h9M17 7h3M4 12h3M11 12h9M4 17h11M19 17h1"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="12" r="2"/><circle cx="17" cy="17" r="2"/></svg></button>
     </div>
 
@@ -57,9 +57,11 @@
       <!-- lives left in this loop, top right -->
       <span id="lives" class="lives" title="Lives: mistakes you may make before the loop starts again (back at each checkpoint)"></span>
       <!-- tempo (left side, mid-height): press the knob and push it up (faster) or down (slower); hold to keep going -->
-      <div id="tempo-rail" class="tempo-rail" title="Tempo: push up = faster, down = slower">
+      <div id="tempo-rail" class="tempo-rail" title="Tempo: push up = faster, down = slower, double-tap to type it">
         <span class="arrow up" aria-hidden="true"></span><span class="arrow down" aria-hidden="true"></span>
         <span id="tempo-knob" class="knob"><b id="tempo-knob-val"></b></span>
+        <!-- double-tap the knob: type a tempo -->
+        <input id="tempo-entry" class="tempo-entry" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="3" autocomplete="off" aria-label="Tempo (bpm)" hidden>
       </div>
       <div id="start-overlay" class="start-overlay"><b><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12.5-7.5z"/></svg>Play</b></div>
     </div>
@@ -119,7 +121,7 @@
             <option value="0">Whole line</option>
           </select>
         </label>
-        <div class="set-row" title="Mistakes you may make in a loop before it starts again. They come back at each checkpoint. 0: any mistake restarts the loop"><span>Lives</span>
+        <div class="set-row" title="Mistakes you may make in a loop before it starts again. They come back at each checkpoint. 0: any mistake restarts the loop. One more than 3: infinite (∞), the loop never restarts"><span>Lives</span>
           <span class="row stepper"><button type="button" id="lives-down" class="step" aria-label="Fewer lives">−</button><span id="lives-val" class="step-val"></span><button type="button" id="lives-up" class="step" aria-label="More lives">+</button></span></div>
         <label class="switch set-row" title="At each checkpoint, play the same loop again instead of moving on, to drill it (key: P)"><span>Repeat each loop</span><input type="checkbox" id="repeat-chk" role="switch"><span class="track" aria-hidden="true"></span></label>
         <label class="switch set-row" title="When a mistake restarts the loop, the tempo goes down 5% to help. Off: the tempo stays as it is"><span>Slow down after a mistake</span><input type="checkbox" id="slow-chk" role="switch"><span class="track" aria-hidden="true"></span></label>
@@ -187,14 +189,27 @@
   <dialog id="hum-dialog">
     <div class="dialog-body">
       <h2>Melody from audio</h2>
-      <p class="small muted" style="margin:0">Hum, sing "la la la" or whistle your tune, keeping the notes clearly apart and at a steady pace.
+      <p id="hum-intro" class="small muted" style="margin:0">Hum, sing "la la la" or whistle your tune, keeping the notes clearly apart and at a steady pace.
         The app writes it down for the whistle (in an easy key) for you to check and play.</p>
-      <canvas id="hum-canvas" class="hum-canvas" aria-label="Your voice's pitch"></canvas>
+      <div id="hum-wrap" class="hum-wrap"><div id="hum-space" class="hum-space"><canvas id="hum-canvas" class="hum-canvas" aria-label="Your voice's pitch"></canvas></div></div>
+      <div id="hum-tools" class="row hum-tools hidden">
+        <div class="hum-seg" role="group" aria-label="Tool">
+          <button id="hum-pen" type="button" aria-pressed="true" title="Draw a note where it's missing or wrong (P)">✏️ Pen</button>
+          <button id="hum-eraser" type="button" aria-pressed="false" title="Rub out what isn't a note: noise, a cough, a slide (E)">🧽 Eraser</button>
+        </div>
+        <label class="check"><input type="checkbox" id="hum-snap" checked> Pen writes on the note lines only</label>
+        <div class="hum-seg" role="group" aria-label="Zoom">
+          <button id="hum-zoom-out" type="button" title="Zoom out">−</button><button id="hum-zoom-in" type="button" title="Zoom in">+</button>
+        </div>
+        <button id="hum-undo" type="button" title="Undo (Ctrl+Z)" disabled>↶ Undo</button>
+        <button id="hum-revert" type="button" class="ghost" title="Back to the recording as it was heard" disabled>Start over</button>
+      </div>
       <div class="row"><button id="hum-rec" type="button" class="primary">Record</button>
+        <button id="hum-edit" type="button" class="hidden" title="Touch up the recording with a pen and an eraser">Edit</button>
         <button id="hum-file-btn" type="button" title="Use a recording instead: a voice memo, or any audio file of someone singing or humming">Open a recording</button>
         <input id="hum-file" type="file" accept="audio/*,video/*,.m4a,.mp3,.wav,.ogg,.webm,.mp4" hidden>
         <span id="hum-status" class="small muted">Up to a minute and a half.</span></div>
-      <div class="hum-link">
+      <div id="hum-link" class="hum-link">
         <h3>From a video or song</h3>
         <div class="row"><input id="hum-url" type="url" placeholder="https://www.youtube.com/shorts/…" aria-label="Link to a video or song" style="flex:1;min-width:180px">
           <button id="hum-open" type="button" title="Opens the link in a new tab, to play it there">Open</button>
@@ -291,6 +306,6 @@
       </div>
     </form>
   </dialog>
-
+
 </body>
 </html>
