@@ -14,10 +14,10 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="Whistle">
-  <script type="module" crossorigin src="./assets/main-CHb15lF8.js"></script>
-  <link rel="modulepreload" crossorigin href="./assets/whistle-Bm3ahH_a.js">
-  <link rel="modulepreload" crossorigin href="./assets/coach-D9UcSMU2.js">
-  <link rel="stylesheet" crossorigin href="./assets/whistle-DpSNyqh_.css">
+  <script type="module" crossorigin src="./assets/main-BQ_ulEyd.js"></script>
+  <link rel="modulepreload" crossorigin href="./assets/whistle-CT2yodsj.js">
+  <link rel="modulepreload" crossorigin href="./assets/coach-HpPzF3XJ.js">
+  <link rel="stylesheet" crossorigin href="./assets/whistle-CVTRkCLz.css">
 </head>
 <body>
   <main class="stage" id="tune-panel">
@@ -198,6 +198,11 @@
           <button id="hum-eraser" type="button" aria-pressed="false" title="Rub out what isn't a note: noise, a cough, a slide (E)">🧽 Eraser</button>
         </div>
         <label class="check"><input type="checkbox" id="hum-snap" checked> Pen writes on the note lines only</label>
+        <label class="row hum-bpm" title="The tempo of the beat lines (and of the tune written down). Change it if the lines don't follow your beat">Beat grid ♩=
+          <input id="hum-bpm" type="number" min="30" max="300" step="1" inputmode="numeric"> bpm</label>
+        <label class="check" title="The pen draws whole notes that start and end on the beat lines: press where the note starts, drag to where it ends"><input type="checkbox" id="hum-onbeat"> Pen notes on the beat</label>
+        <select id="hum-sub" aria-label="Beat grid step" title="How finely the pen's notes follow the beat">
+          <option value="1">whole beats</option><option value="2" selected>½ beats</option><option value="4">¼ beats</option></select>
         <div class="hum-seg" role="group" aria-label="Zoom">
           <button id="hum-zoom-out" type="button" title="Zoom out">−</button><button id="hum-zoom-in" type="button" title="Zoom in">+</button>
         </div>
