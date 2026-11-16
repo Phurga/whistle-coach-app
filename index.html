@@ -13,10 +13,10 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="Whistle">
-  <script type="module" crossorigin src="./assets/main-BW8pD7I6.js"></script>
-  <link rel="modulepreload" crossorigin href="./assets/whistle-CQvopgwp.js">
-  <link rel="modulepreload" crossorigin href="./assets/coach-Da6z_l69.js">
-  <link rel="stylesheet" crossorigin href="./assets/whistle-C-xRtGKi.css">
+  <script type="module" crossorigin src="./assets/main-DXjWHkKJ.js"></script>
+  <link rel="modulepreload" crossorigin href="./assets/whistle-B_d3EqJd.js">
+  <link rel="modulepreload" crossorigin href="./assets/coach-C7eBins6.js">
+  <link rel="stylesheet" crossorigin href="./assets/whistle-C8Kb4sjb.css">
 </head>
 <body>
   <main class="stage" id="tune-panel">
@@ -95,54 +95,67 @@
   <dialog id="settings-dialog">
     <form method="dialog" class="dialog-body settings">
       <h2 class="dlg-head">Settings <button value="close" class="ghost dlg-close" formnovalidate aria-label="Close" title="Close (Esc)"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></h2>
-      <label title="What kind of tune this is (reel, jig, waltz…): it sets how long a bar is">Tune type
-        <select id="tune-type"></select>
-      </label>
-      <label title="A mistake sends you back to the last checkpoint (the gold flags). Tune default: the usual practice length for this type of tune">Checkpoint every
-        <select id="looplen">
-          <option value="-1">Tune default</option>
-          <option value="1">1 bar</option>
-          <option value="2">2 bars</option>
-          <option value="4">4 bars</option>
-          <option value="8">8 bars</option>
-          <option value="0">Whole line</option>
-        </select>
-      </label>
-      <label class="switch" title="A soft beat in your earphones while you play. Off: the beat is only shown on the board"><input type="checkbox" id="beat-chk" role="switch"><span class="track" aria-hidden="true"></span>Beat sound</label>
-      <div class="field" title="Mistakes you may make in a loop before it starts again. They come back at each checkpoint. 0: any mistake restarts the loop">Lives
-        <span class="row stepper"><button type="button" id="lives-down" class="step" aria-label="Fewer lives">−</button><span id="lives-val" class="step-val"></span><button type="button" id="lives-up" class="step" aria-label="More lives">+</button></span></div>
-      <div class="field" title="Each tune has a reference tempo (its well-known recording or usual pace); the app remembers the tempo you use for each tune. Hold − or + to change it faster">Tempo
-        <span class="row stepper"><button type="button" id="tempo-down" class="step" aria-label="Slower">−</button><span id="tempo-val" class="step-val"></span><button type="button" id="tempo-up" class="step" aria-label="Faster">+</button>
-          <button type="button" id="tempo-reset" class="small" title="Back to the reference tempo" aria-label="Reference tempo"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3M4.5 4v4.5H9"/></svg></button>
-          <input id="tempo" type="hidden" min="20" max="200"></span></div>
-      <label id="timing-label">Timing window <span class="row"><input id="timing" type="range" min="0" max="60" step="5" style="flex:1"> <span id="timing-val"></span></span>
-        <span id="timing-note" class="small muted"></span></label>
-      <label title="While you hold a note, it only counts as held while it stays this close to the right pitch (in cents: 100 = a semitone)">Hold tone window <span class="row"><input id="tone" type="range" min="5" max="50" step="5" style="flex:1"> <span id="tone-val"></span></span></label>
-      <label class="switch" title="Upcoming notes show as '?': play them from memory. Notes you get wrong are shown again"><input type="checkbox" id="hint-chk" role="switch"><span class="track" aria-hidden="true"></span>Play from memory</label>
-      <label class="switch" title="Notes fall from the top to a line near the bottom, like piano tiles, low notes on the left. Off: they scroll from right to left"><input type="checkbox" id="vert-chk" role="switch"><span class="track" aria-hidden="true"></span>Notes fall from the top</label>
-      <label class="switch" title="Game sounds for good notes, mistakes and cleared loops"><input type="checkbox" id="fx-chk" role="switch"><span class="track" aria-hidden="true"></span>Game sounds</label>
-      <h3>Microphone</h3>
-      <div class="row"><button id="calib-btn" type="button" title="About 15 seconds of playing that fits the app to your whistle, its sound and your room. Re-run it if you change whistle, microphone or room">Run setup</button> <span id="calib-val" class="muted small"></span></div>
-      <label class="row small" title="Set by setup. Raise it if notes aren't picked up; lower it if background noise triggers notes">Mic boost
-        <input id="boost" type="range" min="1" max="40" step="0.5" style="flex:1">
-        <span id="boost-val" style="min-width:3.5em">×1</span>
-      </label>
-      <details class="board-help">
+      <section class="set-group">
+        <h3>This tune</h3>
+        <label class="set-row" title="What kind of tune this is (reel, jig, waltz…): it sets how long a bar is"><span>Tune type</span>
+          <select id="tune-type"></select>
+        </label>
+        <div class="set-row" title="Each tune has a reference tempo (its well-known recording or usual pace); the app remembers the tempo you use for each tune. Hold − or + to change it faster"><span>Tempo</span>
+          <span class="row stepper"><button type="button" id="tempo-reset" class="small" title="Back to the reference tempo" aria-label="Reference tempo"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3M4.5 4v4.5H9"/></svg></button>
+            <button type="button" id="tempo-down" class="step" aria-label="Slower">−</button><span id="tempo-val" class="step-val"></span><button type="button" id="tempo-up" class="step" aria-label="Faster">+</button>
+            <input id="tempo" type="hidden" min="20" max="200"></span></div>
+        <div class="set-row"><span></span><button id="delete-btn" type="button" class="ghost small" title="Delete this tune">Delete this tune</button></div>
+      </section>
+      <section class="set-group">
+        <h3>Practice</h3>
+        <label class="set-row" title="A mistake sends you back to the last checkpoint (the gold flags). Tune default: the usual practice length for this type of tune"><span>Checkpoint every</span>
+          <select id="looplen">
+            <option value="-1">Tune default</option>
+            <option value="1">1 bar</option>
+            <option value="2">2 bars</option>
+            <option value="4">4 bars</option>
+            <option value="8">8 bars</option>
+            <option value="0">Whole line</option>
+          </select>
+        </label>
+        <div class="set-row" title="Mistakes you may make in a loop before it starts again. They come back at each checkpoint. 0: any mistake restarts the loop"><span>Lives</span>
+          <span class="row stepper"><button type="button" id="lives-down" class="step" aria-label="Fewer lives">−</button><span id="lives-val" class="step-val"></span><button type="button" id="lives-up" class="step" aria-label="More lives">+</button></span></div>
+        <label class="switch set-row" title="Upcoming notes show as '?': play them from memory. Notes you get wrong are shown again"><span>Play from memory</span><input type="checkbox" id="hint-chk" role="switch"><span class="track" aria-hidden="true"></span></label>
+      </section>
+      <section class="set-group">
+        <h3>Judging</h3>
+        <label id="timing-label" class="set-row slider"><span>Timing</span><input id="timing" type="range" min="0" max="60" step="5"><span id="timing-val" class="set-val"></span></label>
+        <span id="timing-note" class="small muted set-note"></span>
+        <label class="set-row slider" title="While you hold a note, it only counts as held while it stays this close to the right pitch (in cents: 100 = a semitone)"><span>Hold tone</span><input id="tone" type="range" min="5" max="50" step="5"><span id="tone-val" class="set-val"></span></label>
+      </section>
+      <section class="set-group">
+        <h3>Sound and view</h3>
+        <label class="switch set-row" title="A soft beat in your earphones while you play. Off: the beat is only shown on the board"><span>Beat sound</span><input type="checkbox" id="beat-chk" role="switch"><span class="track" aria-hidden="true"></span></label>
+        <label class="switch set-row" title="Game sounds for good notes, mistakes and cleared loops"><span>Game sounds</span><input type="checkbox" id="fx-chk" role="switch"><span class="track" aria-hidden="true"></span></label>
+        <label class="switch set-row" title="Notes fall from the top to a line near the bottom, like piano tiles, low notes on the left. Off: they scroll from right to left"><span>Notes fall from the top</span><input type="checkbox" id="vert-chk" role="switch"><span class="track" aria-hidden="true"></span></label>
+      </section>
+      <section class="set-group">
+        <h3>Microphone</h3>
+        <div class="set-row" title="About 15 seconds of playing that fits the app to your whistle, its sound and your room. Re-run it if you change whistle, microphone or room"><span>Setup</span><button id="calib-btn" type="button" class="small">Run setup</button></div>
+        <span id="calib-val" class="muted small set-note"></span>
+        <label class="set-row slider" title="Set by setup. Raise it if notes aren't picked up; lower it if background noise triggers notes"><span>Mic boost</span>
+          <input id="boost" type="range" min="1" max="40" step="0.5"><span id="boost-val" class="set-val">×1</span></label>
+      </section>
+      <details class="set-group board-help">
         <summary><h3>Reading the board</h3></summary>
         <ul class="legend small">
-          <li><i class="lg-note"></i><span>A note: play it when its front edge reaches the bone line. The number is how many holes to cover (0 = all open).</span></li>
-          <li><i class="lg-note high"></i><span>High octave (+): same fingering, blow a bit harder.</span></li>
-          <li><i class="lg-note short"></i><span>Short note: less than a beat.</span></li>
-          <li><i class="lg-hold"></i><span>Held note: keep blowing; the tail fills up while you sustain it.</span></li>
-          <li><i class="lg-note lg-good"></i><span>Green glow: you hit it. A held note stays lit while you sustain it on pitch.</span></li>
-          <li><i class="lg-note lg-bad"></i><span>Red glow: missed. The skull and number beside a note count how many times it has cost you.</span></li>
-          <li><i class="lg-tongue"></i><span>Same note again: re-tongue it ("tu"), shown by a bright bar along its front edge.</span></li>
-          <li><i class="lg-chart"></i><span>Unusual fingering (c♮, half holes "½"): the little chart above the note shows the six holes, mouthpiece at the top. Filled = covered, half = half covered, ring = open.</span></li>
+          <li><details><summary><i class="lg-note"></i>A note</summary><p>Play it when its front edge reaches the bone line. The number is how many holes to cover (0 = all open).</p></details></li>
+          <li><details><summary><i class="lg-note high"></i>High octave (+)</summary><p>Same fingering, blow a bit harder.</p></details></li>
+          <li><details><summary><i class="lg-note short"></i>Short note</summary><p>Less than a beat.</p></details></li>
+          <li><details><summary><i class="lg-hold"></i>Held note</summary><p>Keep blowing; the tail fills up while you sustain it.</p></details></li>
+          <li><details><summary><i class="lg-note lg-good"></i>Green glow</summary><p>You hit it. A held note stays lit while you sustain it on pitch.</p></details></li>
+          <li><details><summary><i class="lg-note lg-bad"></i>Red glow</summary><p>Missed. The skull and number beside a note count how many times it has cost you.</p></details></li>
+          <li><details><summary><i class="lg-tongue"></i>Same note again</summary><p>Re-tongue it ("tu"), shown by a bright bar along its front edge.</p></details></li>
+          <li><details><summary><i class="lg-chart"></i>Unusual fingering</summary><p>For c♮ and half holes ("½"), the little chart above the note shows the six holes, mouthpiece at the top. Filled = covered, half = half covered, ring = open.</p></details></li>
         </ul>
         <div class="legend-faces small" id="legend-faces"></div>
       </details>
       <div class="row end">
-        <button id="delete-btn" type="button" class="ghost" title="Delete this tune">Delete this tune</button>
         <button value="close" class="primary">Done</button>
       </div>
     </form>
