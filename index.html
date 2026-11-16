@@ -13,9 +13,9 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="Whistle">
-  <script type="module" crossorigin src="./assets/main-DXjWHkKJ.js"></script>
+  <script type="module" crossorigin src="./assets/main-BIkM66b7.js"></script>
   <link rel="modulepreload" crossorigin href="./assets/whistle-B_d3EqJd.js">
-  <link rel="modulepreload" crossorigin href="./assets/coach-C7eBins6.js">
+  <link rel="modulepreload" crossorigin href="./assets/coach-iWshwsH8.js">
   <link rel="stylesheet" crossorigin href="./assets/whistle-C8Kb4sjb.css">
 </head>
 <body>
@@ -120,10 +120,12 @@
         </label>
         <div class="set-row" title="Mistakes you may make in a loop before it starts again. They come back at each checkpoint. 0: any mistake restarts the loop"><span>Lives</span>
           <span class="row stepper"><button type="button" id="lives-down" class="step" aria-label="Fewer lives">−</button><span id="lives-val" class="step-val"></span><button type="button" id="lives-up" class="step" aria-label="More lives">+</button></span></div>
+        <label class="switch set-row" title="When a mistake restarts the loop, the tempo goes down 5% to help. Off: the tempo stays as it is"><span>Slow down after a mistake</span><input type="checkbox" id="slow-chk" role="switch"><span class="track" aria-hidden="true"></span></label>
         <label class="switch set-row" title="Upcoming notes show as '?': play them from memory. Notes you get wrong are shown again"><span>Play from memory</span><input type="checkbox" id="hint-chk" role="switch"><span class="track" aria-hidden="true"></span></label>
       </section>
       <section class="set-group">
         <h3>Judging</h3>
+        <label class="switch set-row" title="Whistling with your mouth instead of a tin whistle: pitch is judged more loosely and in any octave, and only the notes on their beats count (what you play in between is never a mistake)"><span>Mouth whistling</span><input type="checkbox" id="voice-chk" role="switch"><span class="track" aria-hidden="true"></span></label>
         <label id="timing-label" class="set-row slider"><span>Timing</span><input id="timing" type="range" min="0" max="60" step="5"><span id="timing-val" class="set-val"></span></label>
         <span id="timing-note" class="small muted set-note"></span>
         <label class="set-row slider" title="While you hold a note, it only counts as held while it stays this close to the right pitch (in cents: 100 = a semitone)"><span>Hold tone</span><input id="tone" type="range" min="5" max="50" step="5"><span id="tone-val" class="set-val"></span></label>
