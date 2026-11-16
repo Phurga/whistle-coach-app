@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Whistle Coach</title>
   <!-- installable app (manifest + offline cache in public/, registered by src/pwa.ts) -->
   <link rel="manifest" href="./manifest.webmanifest">
@@ -14,10 +14,10 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="Whistle">
-  <script type="module" crossorigin src="./assets/main-BQ_ulEyd.js"></script>
-  <link rel="modulepreload" crossorigin href="./assets/whistle-CT2yodsj.js">
-  <link rel="modulepreload" crossorigin href="./assets/coach-HpPzF3XJ.js">
-  <link rel="stylesheet" crossorigin href="./assets/whistle-CVTRkCLz.css">
+  <script type="module" crossorigin src="./assets/main-BYak-Y0I.js"></script>
+  <link rel="modulepreload" crossorigin href="./assets/whistle-DBc6ZFec.js">
+  <link rel="modulepreload" crossorigin href="./assets/coach-BJOrAcO7.js">
+  <link rel="stylesheet" crossorigin href="./assets/whistle-BmIzGsqT.css">
 </head>
 <body>
   <main class="stage" id="tune-panel">
@@ -97,15 +97,14 @@
 
   <dialog id="settings-dialog">
     <form method="dialog" class="dialog-body settings">
-      <h2 class="dlg-head">Settings <button value="close" class="ghost dlg-close" formnovalidate aria-label="Close" title="Close (Esc)"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></h2>
+      <h2 class="dlg-head page-head"><button value="close" class="ghost dlg-back" formnovalidate aria-label="Back" title="Back (Esc)"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button><span>Settings</span></h2>
       <section class="set-group">
         <h3>This tune</h3>
-        <label class="set-row" title="What kind of tune this is (reel, jig, waltz…): it sets how long a bar is"><span>Tune type</span>
+        <label class="set-row" title="What kind of tune this is (reel, jig, waltz…): it sets how long a bar is. Tune default: the type the tune comes with"><span>Tune type</span>
           <select id="tune-type"></select>
         </label>
         <div class="set-row" title="Each tune has a reference tempo (its well-known recording or usual pace); the app remembers the tempo you use for each tune. Hold − or + to change it faster"><span>Tempo</span>
-          <span class="row stepper"><button type="button" id="tempo-reset" class="small" title="Back to the reference tempo" aria-label="Reference tempo"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3M4.5 4v4.5H9"/></svg></button>
-            <button type="button" id="tempo-down" class="step" aria-label="Slower">−</button><span id="tempo-val" class="step-val"></span><button type="button" id="tempo-up" class="step" aria-label="Faster">+</button>
+          <span class="row stepper"><button type="button" id="tempo-down" class="step" aria-label="Slower">−</button><span id="tempo-val" class="step-val tempo-val" title="Hold: back to the reference tempo · double-tap: type a tempo"><b id="tempo-num"></b><small id="tempo-rel"></small><input id="tempo-type" class="tempo-type" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="3" autocomplete="off" aria-label="Tempo (bpm)" hidden></span><button type="button" id="tempo-up" class="step" aria-label="Faster">+</button>
             <input id="tempo" type="hidden" min="20" max="200"></span></div>
         <div class="set-row"><span></span><button id="delete-btn" type="button" class="ghost small" title="Delete this tune">Delete this tune</button></div>
       </section>
@@ -125,7 +124,6 @@
           <span class="row stepper"><button type="button" id="lives-down" class="step" aria-label="Fewer lives">−</button><span id="lives-val" class="step-val"></span><button type="button" id="lives-up" class="step" aria-label="More lives">+</button></span></div>
         <label class="switch set-row" title="At each checkpoint, play the same loop again instead of moving on, to drill it (key: P)"><span>Repeat each loop</span><input type="checkbox" id="repeat-chk" role="switch"><span class="track" aria-hidden="true"></span></label>
         <label class="switch set-row" title="When a mistake restarts the loop, the tempo goes down 5% to help. Off: the tempo stays as it is"><span>Slow down after a mistake</span><input type="checkbox" id="slow-chk" role="switch"><span class="track" aria-hidden="true"></span></label>
-        <label class="switch set-row" title="Upcoming notes show as '?': play them from memory. Notes you get wrong are shown again"><span>Play from memory</span><input type="checkbox" id="hint-chk" role="switch"><span class="track" aria-hidden="true"></span></label>
       </section>
       <section class="set-group">
         <h3>Judging</h3>
@@ -138,7 +136,6 @@
         <h3>Sound and view</h3>
         <label class="switch set-row" title="A soft beat in your earphones while you play. Off: the beat is only shown on the board"><span>Beat sound</span><input type="checkbox" id="beat-chk" role="switch"><span class="track" aria-hidden="true"></span></label>
         <label class="switch set-row" title="Game sounds for good notes, mistakes and cleared loops"><span>Game sounds</span><input type="checkbox" id="fx-chk" role="switch"><span class="track" aria-hidden="true"></span></label>
-        <label class="switch set-row" title="Notes fall from the top to a line near the bottom, like piano tiles, low notes on the left. Off: they scroll from right to left"><span>Notes fall from the top</span><input type="checkbox" id="vert-chk" role="switch"><span class="track" aria-hidden="true"></span></label>
       </section>
       <section class="set-group">
         <h3>Microphone</h3>
@@ -196,6 +193,7 @@
         <div class="hum-seg" role="group" aria-label="Tool">
           <button id="hum-pen" type="button" aria-pressed="true" title="Draw a note where it's missing or wrong (P)">✏️ Pen</button>
           <button id="hum-eraser" type="button" aria-pressed="false" title="Rub out what isn't a note: noise, a cough, a slide (E)">🧽 Eraser</button>
+          <button id="hum-move" type="button" aria-pressed="false" title="Drag the board to move through the take, and up or down the page (M)">✋ Move</button>
         </div>
         <label class="check"><input type="checkbox" id="hum-snap" checked> Pen writes on the note lines only</label>
         <label class="row hum-bpm" title="The tempo of the beat lines (and of the tune written down). Change it if the lines don't follow your beat">Beat grid ♩=
