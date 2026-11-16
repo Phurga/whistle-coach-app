@@ -6,14 +6,15 @@
   <title>Whistle Coach</title>
   <!-- installable app (manifest + offline cache in public/, registered by src/pwa.ts) -->
   <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./logo.svg" type="image/svg+xml">
   <link rel="icon" href="./icon-192.png">
   <link rel="apple-touch-icon" href="./apple-touch-icon.png">
   <meta name="theme-color" content="#f7efe0" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#1d1614" media="(prefers-color-scheme: dark)">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-title" content="Whistle">
-  <script type="module" crossorigin src="./assets/main-BIkM66b7.js"></script>
+  <meta name="apple-mobile-web-app-title" content="Whistle">
+  <script type="module" crossorigin src="./assets/main-DG3EqnJl.js"></script>
   <link rel="modulepreload" crossorigin href="./assets/whistle-B_d3EqJd.js">
   <link rel="modulepreload" crossorigin href="./assets/coach-iWshwsH8.js">
   <link rel="stylesheet" crossorigin href="./assets/whistle-C8Kb4sjb.css">
@@ -120,6 +121,7 @@
         </label>
         <div class="set-row" title="Mistakes you may make in a loop before it starts again. They come back at each checkpoint. 0: any mistake restarts the loop"><span>Lives</span>
           <span class="row stepper"><button type="button" id="lives-down" class="step" aria-label="Fewer lives">−</button><span id="lives-val" class="step-val"></span><button type="button" id="lives-up" class="step" aria-label="More lives">+</button></span></div>
+        <label class="switch set-row" title="At each checkpoint, play the same loop again instead of moving on, to drill it (key: P)"><span>Repeat each loop</span><input type="checkbox" id="repeat-chk" role="switch"><span class="track" aria-hidden="true"></span></label>
         <label class="switch set-row" title="When a mistake restarts the loop, the tempo goes down 5% to help. Off: the tempo stays as it is"><span>Slow down after a mistake</span><input type="checkbox" id="slow-chk" role="switch"><span class="track" aria-hidden="true"></span></label>
         <label class="switch set-row" title="Upcoming notes show as '?': play them from memory. Notes you get wrong are shown again"><span>Play from memory</span><input type="checkbox" id="hint-chk" role="switch"><span class="track" aria-hidden="true"></span></label>
       </section>
@@ -289,6 +291,6 @@
       </div>
     </form>
   </dialog>
-
+
 </body>
 </html>
